@@ -1,0 +1,2 @@
+19.03.2018 Daniela Bistrean
+	* random generator for food can generate positions on the frame border which are inaccessible
