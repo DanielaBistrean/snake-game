@@ -31,8 +31,6 @@ snake_node* update_and_print_snake(snake_node *snake, int new_y, int new_x, int 
 	first->next = snake;
 	snake = first;
 
-	
-
 	while (snake != NULL)
 	{
 		mvaddch(snake->y, snake->x, 'X');
@@ -52,9 +50,25 @@ void generate_random_pos(int *y, int *x)
 	*x = rand() % max_x;
 }
 
+void print_frame()
+{
+	int i;
+	for (i = 0; i < max_y; i++)
+	{
+		mvaddch(i, 0, '|');
+		mvaddch(i, max_x - 1, '|');
+	}
+
+	for (i = 0; i < max_x; i++)
+	{
+		mvaddch(0, i, '-');
+		mvaddch(max_y - 1, i, '-');
+	}
+}
+
 int main(int argc, const char *argv[])
 {
-	int x = 100, y = 40;
+	int x = 199, y = 5;
 	int grow;
 	int food_x = 10, food_y = 10;
 	int ch;
@@ -121,9 +135,14 @@ int main(int argc, const char *argv[])
 		}
 
 		grow = 0;
+		clear();
+		print_frame();
 
-		if ((x <= 0 || x > max_x) ||
-			(y <= 0 || y > max_y) ||
+		move(0, 3);
+		printw("[%3dx%3d]", y, x);
+
+		if ((x < 1 || x >= max_x - 1) ||
+			(y < 1 || y >= max_y - 1) ||
 			(dir != STOP && check_snake_overlap(snake, y, x)))
 		{
 			endwin();
@@ -137,7 +156,6 @@ int main(int argc, const char *argv[])
 
 		}
 
-		clear();
 		mvaddch(food_y, food_x, 'O');
 		//mvaddch(y, x, 'X');
 		snake = update_and_print_snake(snake, y, x, grow);
