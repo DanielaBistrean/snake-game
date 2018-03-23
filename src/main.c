@@ -46,8 +46,8 @@ snake_node* update_and_print_snake(snake_node *snake, int new_y, int new_x, int 
 
 void generate_random_pos(int *y, int *x)
 {
-	*y = rand() % max_y;
-	*x = rand() % max_x;
+	*y = (rand() % (max_y - 2)) + 1;
+	*x = (rand() % (max_x - 2)) + 1;
 }
 
 void print_frame()
