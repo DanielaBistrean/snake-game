@@ -74,6 +74,7 @@ void print_frame()
 int main(int argc, const char *argv[])
 {
 	int x = 199, y = 5;
+	int score = 0;
 	int grow;
 	int food_x = 10, food_y = 10;
 	int ch;
@@ -144,7 +145,7 @@ int main(int argc, const char *argv[])
 		print_frame();
 
 		move(0, 3);
-		printw("[%3dx%3d]", y, x);
+		printw("[%3dx%3d][score: %d]", y, x, score);
 
 		if ((x < 1 || x >= max_x - 1) ||
 			(y < 1 || y >= max_y - 1) ||
@@ -158,7 +159,7 @@ int main(int argc, const char *argv[])
 		{
 			generate_random_pos(&food_y, &food_x);
 			grow = 1;
-
+			score ++;
 		}
 
 		mvaddch(food_y, food_x, ACS_DIAMOND);
