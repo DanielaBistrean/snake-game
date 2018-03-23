@@ -33,7 +33,7 @@ snake_node* update_and_print_snake(snake_node *snake, int new_y, int new_x, int 
 
 	while (snake != NULL)
 	{
-		mvaddch(snake->y, snake->x, 'X');
+		mvaddch(snake->y, snake->x, ACS_CKBOARD);
 		if ((snake->next != NULL && snake->next->next == NULL) && grow == 0)
 			snake->next = NULL;
 
@@ -53,17 +53,22 @@ void generate_random_pos(int *y, int *x)
 void print_frame()
 {
 	int i;
-	for (i = 0; i < max_y; i++)
+	for (i = 1; i < max_y - 1; i++)
 	{
-		mvaddch(i, 0, '|');
-		mvaddch(i, max_x - 1, '|');
+		mvaddch(i, 0, ACS_VLINE);
+		mvaddch(i, max_x - 1, ACS_VLINE);
 	}
 
-	for (i = 0; i < max_x; i++)
+	for (i = 1; i < max_x - 1; i++)
 	{
-		mvaddch(0, i, '-');
-		mvaddch(max_y - 1, i, '-');
+		mvaddch(0, i, ACS_HLINE);
+		mvaddch(max_y - 1, i, ACS_HLINE);
 	}
+
+	mvaddch(0, 0, ACS_ULCORNER);
+	mvaddch(max_y - 1, 0, ACS_LLCORNER);
+	mvaddch(0, max_x - 1, ACS_URCORNER);
+	mvaddch(max_y - 1, max_x - 1, ACS_LRCORNER);
 }
 
 int main(int argc, const char *argv[])
@@ -156,7 +161,7 @@ int main(int argc, const char *argv[])
 
 		}
 
-		mvaddch(food_y, food_x, 'O');
+		mvaddch(food_y, food_x, ACS_DIAMOND);
 		//mvaddch(y, x, 'X');
 		snake = update_and_print_snake(snake, y, x, grow);
 		refresh();
